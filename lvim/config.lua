@@ -15,7 +15,7 @@ vim.o.wrap = true 		-- line wrap
 vim.o.wildmode = 'longest,full'    -- command-line completion
 vim.o.autoread = true 		-- vim knows what syntax the file is
 vim.o.signcolumn = 'yes' 	-- column left of numbers to show errors
-vim.o.textwidth = 90 		-- line length above which to break a line
+vim.o.textwidth = 120 		-- line length above which to break a line
 vim.o.spell = true 		-- highlights spelling mistakes
 vim.o.spelllang = 'en_gb' 	-- english spell check
 vim.g.updatetime = 500		-- updates the swap file every X no. of milliseconds, important for gitgutter
@@ -28,7 +28,6 @@ vim.o.termguicolors = true
 
 -- colour schemes
 vim.cmd[[colorscheme tokyonight-night]]
-vim.cmd[[colorscheme catppuccin-mocha]]
 --- MAPPINGS ---
 -- Modes
 --   normal_mode = "n",
@@ -60,7 +59,17 @@ vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv", { noremap = true })
 vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", { noremap = true })
 vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", { noremap = true })
 
+-- Movement around wrapped lines
+vim.keymap.set('n', 'j', 'v:count ? "j" : "gj"', { noremap = true, expr = true, desc = 'Move down (including wrapping lines)' })
+vim.keymap.set('n', 'k', 'v:count ? "k" : "gk"', { noremap = true, expr = true, desc = 'Move up (including wrapping lines)' })
+vim.keymap.set('n', '<Up>', 'v:count ? "k" : "gk"', { noremap = true, expr = true, desc = 'Move up (including wrapping lines)' })
+vim.keymap.set('n', '<Down>', 'v:count ? "j" : "gj"', { noremap = true, expr = true, desc = 'Move down (including wrapping lines)' })
+vim.keymap.set('i', '<Up>', 'pumvisible() ? "k" : "<C-o>gk"', { noremap = true, expr = true, desc = 'Move up (including wrapping lines)' })
+vim.keymap.set('i', '<Down>', 'pumvisible() ? "j" : "<C-o>gj"', { noremap = true, expr = true, desc = 'Move down (including wrapping lines)' })
+
 -- ToggleTerm keymaps
 vim.keymap.set('n', '<leader>t', '<cmd>ToggleTerm<space>size=80<space>direction=vertical<CR>')
 vim.keymap.set('n', '<leader>r', '<cmd>ToggleTermSendCurrentLine<CR>')
 vim.keymap.set('v', '<leader>r', '<cmd>ToggleTermSendVisualSelection<CR>')
+
+
